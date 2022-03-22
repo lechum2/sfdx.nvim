@@ -6,6 +6,7 @@ local sfdxDeployPathParameter = "--sourcepath"
 
 function M.deploy()
 	local command = { sfdxCommand, sfdxDeployCommand, sfdxDeployPathParameter, vim.fn.expand("%") }
+	print("deploying...")
 	local output = vim.fn.system(table.concat(command, " "))
 	print(output)
 end
