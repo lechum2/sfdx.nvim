@@ -1,6 +1,6 @@
 local M = {}
 
-local sfdxCommand = "/usr/bin/sfdx"
+local sfdxCommand = "sfdx"
 
 function M.deployCurrentFile()
 	local sfdxDeployCommand = "force:source:deploy"
@@ -18,6 +18,16 @@ function M.runTestsFromCurrentFile()
 	local filename = vim.fn.expand("%:t:r")
 	local command = { sfdxCommand, sfdxRunTestCommand, sfdxRunTestClassParamter, filename, sfdxRunTestWaitParamter }
 	print("running tests...")
+	local output = vim.fn.system(table.concat(command, " "))
+	print(output)
+end
+
+function M.retrieveCurrentFile()
+	local sfdxSubcommand = "force:source:retrieve"
+	local flagName = "--sourcepath"
+	local filename = vim.fn.expand("%:t:r")
+	local command = { sfdxCommand, sfdxSubcommand, flagName, filename }
+	print("retrieving...")
 	local output = vim.fn.system(table.concat(command, " "))
 	print(output)
 end
