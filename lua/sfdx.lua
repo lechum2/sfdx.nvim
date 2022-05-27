@@ -32,4 +32,14 @@ function M.retrieveCurrentFile()
 	print(output)
 end
 
+function M.getDefaultUserName()
+	local sfdxFile = '.sfdx/sfdx-config.json'
+	local sfdxConfigFile = vim.fn.findfile(sfdxFile, ".;")
+	if vim.fn.filereadable(sfdxConfigFile) == 0 then return "" end
+	local sfdxConfiguration = vim.fn.json_decode(vim.fn.readfile(sfdxConfigFile))
+	local defaultUserName = sfdxConfiguration["defaultusername"]
+	if defaultUserName == nil then return "" end
+	return defaultUserName
+end
+
 return M
